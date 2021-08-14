@@ -1,0 +1,231 @@
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="Document_pliki/style.css">
+    <title>Document</title>
+    <style>
+      :root {
+        --color-1: #bf0426;
+        --color-2: #213d40;
+        --color-3: #d9d1a9;
+        --color-4: #bf9341;
+        --color-5: #731f1f;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: inherit;
+      }
+
+      html {
+        /* Set font size for easy rem calculations    box-sizing: border-box;  scroll-behavior: smooth;
+   * default document font size = 16px, 1rem = 16px, 100% = 16px
+   * (100% / 16px) * 10 = 62.5%, 1rem = 10px, 62.5% = 10px
+  */
+        font-size: 62.5%;
+        box-sizing: border-box;
+      }
+
+      body {
+        background-color: var(--color-3);
+        padding: 2rem;
+      }
+
+      h1 {
+        padding: 1rem 1rem;
+        color: var(--color-5);
+      }
+
+      header {
+        max-width: 1024px;
+        margin: auto;
+      }
+
+      .style {
+        background-color: var(--color-4);
+        border-radius: 1rem;
+        margin-bottom: 2rem;
+        padding: 1rem 1rem;
+      }
+
+      .cala_lista {
+        display: none;
+      }
+
+      button {
+        width: 100%;
+        font-size: 2rem;
+        text-align: center;
+        outline: none; /*no border after selecting*/
+        display: block;
+        transition: all 0.3s;
+        border: none;
+        border-radius: 0.5rem;
+        margin: 1rem 0;
+        background-color: var(--color-5);
+        color: var(--color-3);
+      }
+
+      button:hover {
+        background-color: var(--color-1);
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      @media screen and (min-width: 768px) {
+        header {
+          display: grid;
+          grid-template-columns: 1fr 3fr;
+          grid-template-rows: auto;
+        }
+
+        .style {
+          margin: 0 1rem;
+          align-self: start;
+        }
+
+        .cala_lista {
+          display: block;
+        }
+
+        .elementy_listy {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: auto;
+          column-gap: 10px;
+          row-gap: 10px;
+        }
+        .w_koszyku {
+          display: none;
+        }
+
+        .elementy_listy button {
+          width: 100%;
+          margin: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="lista_zakupow style">
+        <h1>Lista zakupów</h1>
+      <button class="zakup" id="0">sok w kartonie</button><button class="zakup" id="1">cieciorka</button><button class="zakup" id="2">zielony groszek</button><button class="zakup" id="3">marchew</button><button class="zakup" id="4">jabłka</button><button class="zakup" id="5">kalarepa</button><button class="zakup" id="6">banany</button><button class="zakup" id="7">grejfrut</button></div>
+      <div class="w_koszyku style">
+        <h1>Już w koszyku</h1>
+      </div>
+      <div class="cala_lista style">
+        <h1>Pula potrzeb</h1>
+        <div class="elementy_listy"><button class="zakup" id="8">borówki</button><button class="zakup" id="9">mięso dla dzieci</button><button class="zakup" id="10">rukola</button><button class="zakup" id="11">masło</button><button class="zakup" id="12">papier toaletowy</button><button class="zakup" id="13">papierowe ręczniki</button><button class="zakup" id="14">waciki</button><button class="zakup" id="15">patyczki do uszu</button><button class="zakup" id="16">mydło</button><button class="zakup" id="17">szampon</button><button class="zakup" id="18">tubki Kubuś</button><button class="zakup" id="19">majonez</button><button class="zakup" id="20">kaczup</button><button class="zakup" id="21">chrzan</button><button class="zakup" id="22">dżem</button><button class="zakup" id="23">wafle ryżowe</button><button class="zakup" id="24">fasola jaś</button><button class="zakup" id="25">przecier</button><button class="zakup" id="26">ryż basmati</button><button class="zakup" id="27">ryż brązowy</button><button class="zakup" id="28">kawa</button><button class="zakup" id="29">kapusta kiszona</button><button class="zakup" id="30">ogórki kiszone</button><button class="zakup" id="31">płatki kukurydziane</button><button class="zakup" id="32">płatki słodkie</button><button class="zakup" id="33">jajka</button><button class="zakup" id="34">makaron spagetti</button><button class="zakup" id="35">makaron inny</button><button class="zakup" id="36">sos do spagetti</button><button class="zakup" id="37">puszka dla psów</button><button class="zakup" id="38">chrupki dla psów</button><button class="zakup" id="39">kostka dla psów</button><button class="zakup" id="40">sól do zmywarki</button><button class="zakup" id="41">tabletki do zmywarki</button><button class="zakup" id="42">płyn do naczyń</button><button class="zakup" id="43">gąbki do mycia naczyń</button><button class="zakup" id="44">worki na śmieci 60l</button></div>
+      </div>
+    </header>
+    <script>
+      'use strict';
+
+      const listaZakupowa = document.querySelector('.lista_zakupow');
+      const koszykZakupowy = document.querySelector('.w_koszyku');
+      const elementy_listy = document.querySelector('.elementy_listy');
+
+      const dostepneProdukty = [
+        'sok w kartonie',
+        'cieciorka',
+        'zielony groszek',
+        'marchew',
+        'jabłka',
+        'kalarepa',
+        'banany',
+        'grejfrut',
+        'borówki',
+        'mięso dla dzieci',
+        'rukola',
+        'masło',
+        'papier toaletowy',
+        'papierowe ręczniki',
+        'waciki',
+        'patyczki do uszu',
+        'mydło',
+        'szampon',
+        'tubki Kubuś',
+        'majonez',
+        'kaczup',
+        'chrzan',
+        'dżem',
+        'wafle ryżowe',
+        'fasola jaś',
+        'przecier',
+        'ryż basmati',
+        'ryż brązowy',
+        'kawa',
+        'kapusta kiszona',
+        'ogórki kiszone',
+        'płatki kukurydziane',
+        'płatki słodkie',
+        'jajka',
+        'makaron spagetti',
+        'makaron inny',
+        'sos do spagetti',
+        'puszka dla psów',
+        'chrupki dla psów',
+        'kostka dla psów',
+        'sól do zmywarki',
+        'tabletki do zmywarki',
+        'płyn do naczyń',
+        'gąbki do mycia naczyń',
+        'worki na śmieci 60l',
+      ];
+
+      function init() {
+        dostepneProdukty.forEach(function (el, i) {
+          const html = `<button class="zakup" id="${i}">${el}</button>`;
+          elementy_listy.insertAdjacentHTML('beforeend', html);
+        });
+
+        //
+      }
+
+      init();
+
+      elementy_listy.addEventListener('click', function (e) {
+        e.preventDefault();
+        if (e.target.classList.contains('zakup')) {
+          const id = e.target.id;
+          const text = e.target.innerHTML;
+          // console.log(id, text);
+          const html = `<button class="zakup" id="${id}">${text}</button>`;
+          listaZakupowa.insertAdjacentHTML('beforeend', html);
+          e.target.remove();
+        }
+      });
+
+      listaZakupowa.addEventListener('click', function (e) {
+        e.preventDefault();
+        if (e.target.classList.contains('zakup')) {
+          const id = e.target.id;
+          const text = e.target.innerHTML;
+          // console.log(id, text);
+          const html = `<button class="zakup" id="${id}">${text}</button>`;
+          koszykZakupowy.insertAdjacentHTML('beforeend', html);
+          e.target.remove();
+        }
+      });
+
+      koszykZakupowy.addEventListener('click', function (e) {
+        e.preventDefault();
+        if (e.target.classList.contains('zakup')) {
+          const id = e.target.id;
+          const text = e.target.innerHTML;
+          // console.log(id, text);
+          const html = `<button class="zakup" id="${id}">${text}</button>`;
+          listaZakupowa.insertAdjacentHTML('beforeend', html);
+          e.target.remove();
+        }
+      });
+    </script>
+  
+
+</body></html>
